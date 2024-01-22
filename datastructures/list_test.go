@@ -1,33 +1,36 @@
 package datastructures
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestAdd(t *testing.T) {
 	list := List{}
 	list.Add(1)
 
-	if list.first == nil {
-		t.Errorf("fist node is nil")
-	}
-
-	if list.first.Value != 1 {
-		t.Errorf("unexpected value of first node: expected %d , obtained %d", 1, list.first.Value)
-	}
-
-	if list.last == nil {
-		t.Errorf("last node is nil")
-	}
-
-	if list.last.Value != 1 {
-		t.Errorf("unexpected value of last node: expected %d , obtained %d", 1, list.last.Value)
-	}
+	assert.NotNil(t, list.first, "first node is nil")
+	assert.Equal(t, 1, list.first.Value)
+	assert.NotNil(t, list.last, "last node is nil")
+	assert.Equal(t, 1, list.last.Value)
 
 	list.Add(2)
 
-	if list.first.Value != 1 {
-		t.Errorf("unexpected value of first node: expected %d , obtained %d", 1, list.first.Value)
+	assert.Equal(t, 1, list.first.Value)
+	assert.Equal(t, 2, list.last.Value)
+}
+
+func TestContains(t *testing.T) {
+	list := List{}
+
+	elements := [4]any{1, 2, 3, "four"}
+
+	for _, value := range elements {
+		list.Add(value)
 	}
-	if list.last.Value != 2 {
-		t.Errorf("unexpected value of last node: expected %d , obtained %d", 2, list.last.Value)
+
+	for _, value := range elements {
+		assert.True(t, list.Contains(value), "List denies containing %v", value)
 	}
 }

@@ -1,6 +1,10 @@
 package datastructures
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestNextFromQueue(t *testing.T) {
 	queue := Queue{}
@@ -9,44 +13,20 @@ func TestNextFromQueue(t *testing.T) {
 	queue.Add(2)
 	queue.Add("three")
 
-	if queue.IsEmpty() {
-		t.Errorf("queue is empty, expected 3 items")
-	}
+	assert.False(t, queue.IsEmpty(), "queue has 3 items - it's not empty!")
 	v, err := queue.NextValue()
-	if err != nil {
-		t.Errorf("Error while getting next value: %s", err.Error())
-	}
-	if v, ok := v.(int32); ok && v != 1 {
-		t.Errorf("Unexpected value taken from queue: expected %d, received %d", 1, v)
-	}
-
-	if queue.IsEmpty() {
-		t.Errorf("queue is empty, expected 2 items")
-	}
+	assert.NoError(t, err, "Error while getting next value")
+	assert.Equal(t, 1, v)
+	assert.False(t, queue.IsEmpty(), "queue has 2 items - it's not empty!")
 	v, err = queue.NextValue()
-	if err != nil {
-		t.Errorf("Error while getting next value: %s", err.Error())
-	}
-	if v, ok := v.(int32); ok && v != 2 {
-		t.Errorf("Unexpected value taken from queue: expected %d, received %d", 2, v)
-	}
-
-	if queue.IsEmpty() {
-		t.Errorf("queue is empty, expected 1 items")
-	}
+	assert.NoError(t, err, "Error while getting next value")
+	assert.Equal(t, 2, v)
+	assert.False(t, queue.IsEmpty(), "queue has 1 item - it's not empty!")
 	v, err = queue.NextValue()
-	if err != nil {
-		t.Errorf("Error while getting next value: %s", err.Error())
-	}
-	if v, ok := v.(string); ok && v != "three" {
-		t.Errorf("Unexpected value taken from queue: expected %s, received %s", "three", v)
-	}
+	assert.NoError(t, err, "Error while getting next value")
+	assert.Equal(t, "three", v)
 
-	if !queue.IsEmpty() {
-		t.Errorf("queue is not empty, but all the values have been dequeued!")
-	}
-
-	if _, err := queue.NextValue(); err == nil {
-		t.Errorf("NextValue on an empty queue should return an error, but none was thrown")
-	}
+	assert.True(t, queue.IsEmpty(), "the queue is empty!")
+	_, err = queue.NextValue()
+	assert.Error(t, err, "NextValue on an empty queue should return an error, but none was thrown")
 }

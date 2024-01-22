@@ -1,8 +1,13 @@
 package datastructures
 
+import (
+	"reflect"
+)
+
 type Memory interface {
 	NextValue() any
 	IsEmpty() bool
+	Contains(value any) bool
 }
 
 type List struct {
@@ -31,6 +36,18 @@ func (l *List) Add(value any) {
 
 func (l List) IsEmpty() bool {
 	return l.first == nil && l.last == nil
+}
+
+func (l List) Contains(value any) bool {
+
+	for node := l.first; node != nil; node = node.next {
+
+		if reflect.DeepEqual(value, node.Value) {
+			return true
+		}
+	}
+
+	return false
 }
 
 type EmptyListError struct {
