@@ -55,7 +55,7 @@ func (maze *Maze) Load(filepath string) error {
 
 		for i, c := range line {
 
-			row[i] = false // value for start ('A'), goal ('B'), or wall ('#')
+			row[i] = false // value for start ('A'), goal ('B'), or passage (' ')
 
 			if c == 'A' {
 				if hasStart {
