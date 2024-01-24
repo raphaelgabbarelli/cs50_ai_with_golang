@@ -5,24 +5,6 @@ import (
 	"os"
 )
 
-/*
-jotting down some notes...
-A maze must be a rectangle.
-A maze must have a startin point A, and a goal B
-Walls are represented by #
-Gaps are modelled by blank spaces
-
-in the CS50 Sarch class, walls are modelled with True values in a bi-dimensional array, while Start Gpa else is a False
-
-
-#####B###
-##### ###
-###   ###
-A   #####
-########
-
-*/
-
 type Point struct {
 	X, Y int
 }
