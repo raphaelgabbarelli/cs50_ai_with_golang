@@ -17,4 +17,15 @@ func TestLoadMaze1(t *testing.T) {
 	assert.Equal(t, 0, maze.Goal.X, "wrong goal x")
 	assert.Equal(t, 5, maze.Goal.Y, "wrong goal y")
 	assert.NotNil(t, maze.Walls)
+
+	expectedRowValues := [7]bool{true, true, true, true, true, false, true}
+	for i, v := range maze.Walls[0] {
+		assert.Equal(t, expectedRowValues[i], v, "unexpected value at index %d", i)
+	}
+
+	expectedRowValues = [7]bool{true, true, true, true, false, false, true}
+	for i, v := range maze.Walls[2] {
+		assert.Equal(t, expectedRowValues[i], v, "unexpected value at index %d", i)
+	}
+
 }

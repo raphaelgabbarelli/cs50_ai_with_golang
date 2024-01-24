@@ -87,7 +87,7 @@ func (maze *Maze) Load(filepath string) error {
 				}
 				hasGoal = true
 				maze.Goal = Point{X: rowIndex, Y: i}
-			} else if c == ' ' {
+			} else if c == '#' {
 				row[i] = true
 			}
 		}
