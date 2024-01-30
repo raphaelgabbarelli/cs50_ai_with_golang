@@ -5,10 +5,6 @@ import (
 	"os"
 )
 
-type Point struct {
-	X, Y int
-}
-
 type Maze struct {
 	Start, Goal Point
 	Walls       [][]bool
@@ -53,24 +49,24 @@ func (maze *Maze) Load(filepath string) error {
 
 		row := make([]bool, lineLength)
 
-		for i, c := range line {
+		for index, character := range line {
 
-			row[i] = false // value for start ('A'), goal ('B'), or passage (' ')
+			row[index] = false // value for start ('A'), goal ('B'), or passage (' ')
 
-			if c == 'A' {
+			if character == 'A' {
 				if hasStart {
 					return MalformedMaze{Message: "Too many starts: only one start (A) is acceptable"}
 				}
 				hasStart = true
-				maze.Start = Point{X: rowIndex, Y: i}
-			} else if c == 'B' {
+				maze.Start = Point{X: index, Y: rowIndex}
+			} else if character == 'B' {
 				if hasGoal {
 					return MalformedMaze{Message: "Too many goals: only one goal (B) is acceptable"}
 				}
 				hasGoal = true
-				maze.Goal = Point{X: rowIndex, Y: i}
-			} else if c == '#' {
-				row[i] = true
+				maze.Goal = Point{X: index, Y: rowIndex}
+			} else if character == '#' {
+				row[index] = true
 			}
 		}
 		walls = append(walls, row)

@@ -1,28 +1,19 @@
 package datastructures
 
-import (
-	"reflect"
-)
-
 type Memory interface {
-	NextValue() any
+	NextValue() (any, error)
 	IsEmpty() bool
 	Contains(value any) bool
+	Add(value any)
 }
 
 type List struct {
-	first *Node
-	last  *Node
-}
-
-type Node struct {
-	previous *Node
-	next     *Node
-	Value    any
+	first *node
+	last  *node
 }
 
 func (l *List) Add(value any) {
-	node := Node{previous: l.last, Value: value}
+	node := node{previous: l.last, Value: value}
 
 	if l.first == nil {
 		l.first = &node
@@ -41,8 +32,7 @@ func (l List) IsEmpty() bool {
 func (l List) Contains(value any) bool {
 
 	for node := l.first; node != nil; node = node.next {
-
-		if reflect.DeepEqual(value, node.Value) {
+		if node.Equal(value) {
 			return true
 		}
 	}

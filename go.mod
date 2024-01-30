@@ -1,4 +1,4 @@
-module github.com/raphaelgabbarelli/cs50_ai_with_golang.git
+module github.com/raphaelgabbarelli/cs50_ai_with_golang
 
 go 1.21.6
 
